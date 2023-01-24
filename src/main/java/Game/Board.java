@@ -35,6 +35,8 @@ public class Board {
     public void initializeBoard(){
         setPlayer2Pieces(height, width);
         setPlayer1Pieces(height, width);
+        game.getPlayer1().setAlivePieces(player1Pieces);
+        game.getPlayer2().setAlivePieces(player2Pieces);
     }
 
     /**
@@ -45,6 +47,7 @@ public class Board {
     private void setPlayer1Pieces(int x, int y) {
         for(int i = 0; i < y; i++){ // setting row of white pawns
             squares[x-2][i] = new Square(x-2, i, new Pawn(squares[x-2][i], game.getPlayer1()));
+            assert player1Pieces != null;
             player1Pieces.add(squares[x-2][i].getPiece());
         }
         squares[x-1][0] = new Square(x-1, 0, new Rook(squares[x-1][0], game.getPlayer1()));
@@ -76,6 +79,7 @@ public class Board {
     private void setPlayer2Pieces(int x, int y) {
         for(int i = 0; i < y; i++){ // setting row of black pawns and adding them to the piece vector
             squares[1][i] = new Square(1, i, new Pawn(squares[1][i], game.getPlayer2()));
+            assert player2Pieces != null;
             player2Pieces.add(squares[1][i].getPiece());
         }
         squares[0][0] = new Square(0, 0, new Rook(squares[0][0], game.getPlayer2()));
@@ -99,5 +103,29 @@ public class Board {
         }
     }
 
+    /**
+     * Function that returns a reference for the square at the given coordinates of the board
+     * @param x The row of the square
+     * @param y The column of the square
+     * @return The square at the coordinates or null, if the square is out of bounds
+     */
+    public Square getSquareAt(int x, int y){
+        if(isInBounds(x, y))//x and y coordinates are on the board
+             return squares[x][y];
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * Function returns true or false based on whether the coordinates are on the board or not.
+     * @param x Row of the square
+     * @param y Column of the square
+     * @return True if the square at the coordinates is on the board, false if it is not.
+     */
+    public boolean isInBounds(int x, int y){
+        //x and y coordinates are on the board
+        return (x < height && 0 <= x) && (y >= 0 && y < width);
+    }
 
 }
