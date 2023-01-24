@@ -24,4 +24,16 @@ public class Game {
     Player getPlayer2(){
         return p2;
     }
+
+    /**
+     * Function that returns the opposing player to the player that is given as parameter
+     * @param p the player that we would like the opposing player to
+     * @return the opposing player to the p parameter
+     */
+    Player getOtherPlayer(Player p){
+        if(p == p1) return p2;
+        else {
+            return p1;
+        }
+    }
 }
