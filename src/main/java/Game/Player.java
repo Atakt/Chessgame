@@ -76,4 +76,26 @@ public class Player {
     public void setAlivePieces(Vector<Piece> alivePieces) {
         this.alivePieces = alivePieces;
     }
+
+    /**
+     * Function returning the king of the player
+     * @return the King piece of the player
+     */
+    public Piece getKing(){
+        Piece king = null;
+        for(Piece p : alivePieces){
+            if(p.getType() == Type.KING){
+                king = p;
+            }
+        }
+        return king;
+    }
+
+    /**
+     * Function returning all the alive pieces of the player in a vector
+     * @return alivePieces Vector
+     */
+    public Vector<Piece> getAlivePieces() {
+        return alivePieces;
+    }
 }

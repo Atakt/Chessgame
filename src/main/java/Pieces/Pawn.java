@@ -46,7 +46,7 @@ public class Pawn extends Piece{
      * {@inheritDoc}
      */
     @Override
-    public void movePiece(Square target, Board chessBoard) {
+    public void move(Square target, Board chessBoard) {
         if (target != null) {
             if(!calculatePossibleMoves(chessBoard).contains(target)) return;
             //if the piece that is moving is a pawn,
@@ -64,6 +64,10 @@ public class Pawn extends Piece{
                         return;
                     }
                 }
+            }
+            if(isPawnPromotion(chessBoard)){
+                pawnPromotionMove(target, chessBoard);
+                return;
             }
             //normal moves
             capturePiece(target);
@@ -262,4 +266,30 @@ public class Pawn extends Piece{
         }
     }
 
+    /**
+     * Function determining if pawn is in position for next move to be a promotion
+     * @param chessBoard The chessboard of the current game
+     * @return True if the next move could result in pawn promotion, else false.
+     */
+    private boolean isPawnPromotion(Board chessBoard){
+        int secondRow = 1; // row second from the top of the board
+        int secondToLastRow = chessBoard.getHeight()-1 -1; // row second from the bottom,
+        // -1 two times, one because it's the row before the last and one because of indexing
+        return ((getColor() == Color.WHITE) && (getPosition().getX() == secondRow)) || ((getColor() == Color.BLACK) && (getPosition().getX() == secondToLastRow));
+    }
+
+    /**
+     * Function to move the pawn and execute the promotion if the pawn is in position.
+     * @param target the square where the pawn moves to, not the square where the enemy piece is taken from
+     * @param chessBoard The chessboard of the current game
+     */
+    private void pawnPromotionMove(Square target, Board chessBoard){
+        capturePiece(target);
+        this.position.setPiece(null); // remove piece from current position(Square)
+        setPreviousPosition(this.position); // set the previous position, as the one that the piece moves from
+        this.position = target; //set the piece's new position
+        this.position.setPiece(this); // set the new position's piece as this piece
+        this.position.setPiece(null); // preparing to promote pawn, first it needs to be removed from the square
+        this.position.setPiece(new Queen(position, player)); // Auto-Queen promotion, pawn gets replaced with a new queen
+    }
 }

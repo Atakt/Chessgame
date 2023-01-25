@@ -1,6 +1,7 @@
 package Game;
 
 import Pieces.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Vector;
 
@@ -37,6 +38,21 @@ public class Board {
         setPlayer1Pieces(height, width);
         game.getPlayer1().setAlivePieces(player1Pieces);
         game.getPlayer2().setAlivePieces(player2Pieces);
+    }
+    /**
+     * Function returning the height (x) of the board
+     * @return the height of the board
+     */
+    public int getHeight(){
+        return height;
+    }
+
+    /**
+     * Function returning the width (y) of the board
+     * @return the width of the board
+     */
+    public int getWidth() {
+        return width;
     }
 
     /**
@@ -126,6 +142,91 @@ public class Board {
     public boolean isInBounds(int x, int y){
         //x and y coordinates are on the board
         return (x < height && 0 <= x) && (y >= 0 && y < width);
+    }
+
+    /**
+     * Function to move a piece to target square.
+     * @param target the square where the piece moves to
+     * @param piece the piece moved
+     */
+    public void movePiece(Square target, Piece piece){
+        piece.move(target, this); // moving piece
+        //need to check checkmate after a move
+        Player enemyPlayer = game.getOtherPlayer(piece.getPlayer());
+        if(isCheckMated(enemyPlayer, this)){// if the player that didn't move this turn is checkmated
+
+            game.setGameOver(true);
+            game.setWinner(piece.getPlayer());
+        }
+
+    }
+
+    /**
+     * Function that checks whether the player given as a parameter is checkmated
+     * @param player the player examined to be checkmated or not
+     * @param chessBoard the chessboard of the current game
+     * @return true is the player is checkmated false if the player isn't checkmated
+     */
+    private boolean isCheckMated(@NotNull Player player, Board chessBoard){
+        if(player.getAllPossibleMoves(chessBoard).isEmpty()){ // player has no moves left
+            return true;
+        }
+
+        boolean checkMate = true;
+        Piece king = player.getKing(); // the king piece of the player
+        if(!king.calculatePossibleMoves(chessBoard).isEmpty()){// the king still has legal moves left
+            return false;
+        }
+        if(player.isSquareInCheck(king.getPosition(), chessBoard)){//the king is in check
+            // we need to check whether any possible moves would make it so that the king would not be in check
+            for(Piece actualPiece : player.getAlivePieces()){// checking for each piece of the player
+                Vector<Square> moves = actualPiece.calculatePossibleMoves(this);
+
+                for (Square actualSquare : moves){
+                    // clone board
+                    Board boardCopy = null;
+                    boardCopy = this.clone(); //cloning the board (this)
+
+                    //make all possible (temporary) moves
+                    //the piece that is moved is the in the same position as the piece in the vector that is being iterated over but not the same
+                    Piece movedPiece = boardCopy.getSquareAt(actualPiece.getPosition().getX(), actualPiece.getPosition().getY()).getPiece();
+                    //likewise we need to find the matching square on the copied board
+                    Square targetSquare = boardCopy.getSquareAt(actualSquare.getX(), actualSquare.getY());
+                    // the square where the piece is moving from, and where we need to move it back
+                    Square prev = getSquareAt(movedPiece.getPosition().getX(), movedPiece.getPosition().getY());
+                    movedPiece.move(targetSquare, boardCopy); // moving the piece to the target square (doing all on the cloned board)
+
+                    Square kingSquare = boardCopy.getSquareAt(king.getPosition().getX(), king.getPosition().getY());
+                    if(!player.isSquareInCheck(kingSquare, boardCopy)){ // if as a result of the move the square where the king stands is no longer in check
+                        //it means the player is not checkmated
+                        return false;
+
+                    }
+                    movedPiece.move(prev, boardCopy); // moving the piece back and continuing iteration
+                }
+            }
+        }
+        return checkMate;
+    }
+
+    /**
+     * Function to help with the checking of checkmate. Creates a deep-copy of the Board object.
+     * @return The copy of the object.
+     */
+    @Override
+    protected Board clone(){
+        Board copy = new Board(game , height, width); // create a new board named copy
+        //Fill the same squares in the new board as in the original
+        for(int i = 0; i < squares.length; i++) {
+            for (int j = 0; j < squares[0].length; j++) {
+                copy.getSquareAt(i,j).setPiece(null);
+                if (squares[i][j].isSquareOccupied()){//if there is a piece on the original board on the square
+                    Piece piece = squares[i][j].getPiece().clone();
+                    copy.getSquareAt(i,j).setPiece(piece);
+                }
+            }
+        }
+        return  copy;
     }
 
 }

@@ -39,6 +39,14 @@ public class King extends Piece{
         addCastlingMoves(moves, chessBoard);
 
         possibleMoves = moves;
+        //King can't move into check
+        Vector<Square> forRemoval = new Vector<>(); //collecting the squares where the king would be in check if it were to move there
+        for (Square target : possibleMoves) {// iterating through all the possible moves
+            if (player.isSquareInCheck(target, chessBoard)) {// if the square is in check add it to the "to be removed" collection
+                forRemoval.add(target);
+            }
+        }
+        possibleMoves.removeAll(forRemoval);
         return possibleMoves;
     }
     /**
@@ -58,14 +66,14 @@ public class King extends Piece{
         return newKing;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void movePiece(Square target,Board chessBoard) {
+    public void move(Square target, Board chessBoard) {
         if (target != null) {
         calculatePossibleMoves(chessBoard);
-        //King can't move into check
-        if (player.isSquareInCheck(target, chessBoard)) {
-            possibleMoves.remove(target);
-        }
+
         // if the king is moving 2 positions, then it must be a castling move
         if (Math.abs(target.getX() - getPosition().getX()) > 1) {
             castlingMove(target, chessBoard);
@@ -120,15 +128,15 @@ public class King extends Piece{
             if ((getPosition().getX() - target.getX()) > 0) { // king is moving left
                 Rook leftRook = (Rook) chessBoard.getSquareAt(target.getX() - 2, target.getY()).getPiece();
                 if (leftRook != null && leftRook.calculatePossibleMoves(chessBoard).contains(chessBoard.getSquareAt(target.getX() + 1, target.getY()))) {
-                    movePiece(target, chessBoard);
-                    leftRook.movePiece(chessBoard.getSquareAt(target.getX() - 1, target.getY()), chessBoard);
+                    move(target, chessBoard);
+                    leftRook.move(chessBoard.getSquareAt(target.getX() - 1, target.getY()), chessBoard);
                 }
             }
             else if ((getPosition().getX() - target.getX()) < 0) { // king is moving right
                 Rook rightRook = (Rook) chessBoard.getSquareAt(target.getX() + 1, target.getY()).getPiece();
                 if (rightRook != null && rightRook.calculatePossibleMoves(chessBoard).contains(chessBoard.getSquareAt(target.getX() - 1, target.getY()))) {
-                    movePiece(target, chessBoard);
-                    rightRook.movePiece(chessBoard.getSquareAt(target.getX() - 1, target.getY()), chessBoard);
+                    move(target, chessBoard);
+                    rightRook.move(chessBoard.getSquareAt(target.getX() - 1, target.getY()), chessBoard);
                 }
 
             }

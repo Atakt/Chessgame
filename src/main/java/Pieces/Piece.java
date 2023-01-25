@@ -91,8 +91,10 @@ public abstract class Piece {
 
     /**
      * Function for moving a piece, each piece moves in its own way.
+     * @param target the square where the piece moves to
+     * @param chessBoard The chessboard of the current game
      */
-    public void movePiece(Square target, Board chessBoard){
+    public void move(Square target, Board chessBoard){
         calculatePossibleMoves(chessBoard);
         if (target != null) {
             if (!possibleMoves.contains(target)) {
