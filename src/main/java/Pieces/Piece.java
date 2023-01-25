@@ -74,11 +74,7 @@ public abstract class Piece {
      * @return True if the piece has moved, false otherwise
      */
     public boolean hasMoved(){
-        if( previousPosition == null){
-            return false;
-        }else{
-            return true;
-        }
+        return previousPosition != null;
     }
 
     /**
@@ -96,7 +92,19 @@ public abstract class Piece {
     /**
      * Function for moving a piece, each piece moves in its own way.
      */
-    public abstract void movePiece(Square target, Board chessBoard);
+    public void movePiece(Square target, Board chessBoard){
+        calculatePossibleMoves(chessBoard);
+        if (target != null) {
+            if (!possibleMoves.contains(target)) {
+                return;
+            }
+            capturePiece(target);
+            this.position.setPiece(null); // remove piece from current position(Square)
+            setPreviousPosition(this.position); // set the previous position, as the one that the piece moves from
+            this.position = target; //set the piece's new position
+            this.position.setPiece(this); // set the new position's piece as this piece
+        }
+    }
 
     /**
      * Function returning the previous position of the piece

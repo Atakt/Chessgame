@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="Basics - Classes, Constructors, Board, Game and Square classes worked on">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Color.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +67,7 @@
       <option name="presentableId" value="Default" />
       <updated>1674307227767</updated>
       <workItem from="1674307228208" duration="11630000" />
-      <workItem from="1674558804878" duration="22905000" />
+      <workItem from="1674558804878" duration="24889000" />
     </task>
     <task id="LOCAL-00001" summary="Basics - Classes, Constructors, Board, Game and Square classes worked on">
       <created>1674338501353</created>
@@ -80,7 +83,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674588305908</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Basics - Classes, Constructors, Board, Game and Square classes worked on">
+      <created>1674588365096</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674588365096</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

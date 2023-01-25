@@ -149,22 +149,5 @@ public class Bishop extends Piece{
     public Bishop clone(){
         return new Bishop(position, player);
     }
-    /**
-     *{@inheritDoc}
-     */
-    @Override
-    public void movePiece(Square target, Board chessBoard) {
-        calculatePossibleMoves(chessBoard);
-        if(target != null){
-            if (!possibleMoves.contains(target)) {
-                return;
-            }
-            capturePiece(target);
-            this.position.setPiece(null); // remove piece from current position(Square)
-            setPreviousPosition(this.position); // set the previous position, as the one that the piece moves from
-            this.position = target; //set the piece's new position
-            this.position.setPiece(this); // set the new position's piece as this piece
-        }
 
-    }
 }
