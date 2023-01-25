@@ -17,6 +17,8 @@ public class Player {
     public Player(Color c, Game game){
         color = c;
         this.game = game;
+        alivePieces = new Vector<>();
+        takenEnemyPieces = new Vector<>();
     }
 
     /**
