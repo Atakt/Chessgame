@@ -16,8 +16,8 @@ public class Knight extends Piece{
      * {@inheritDoc}
      */
     @Override
-    public Vector<Square> calculatePossibleMoves(Board chessBoard) {
-        Vector<Square> possibleMoves = new Vector<>();
+    public void calculatePossibleMoves(Board chessBoard) {
+        possibleMoves.clear();
         int[][] offsets = {
                 {-2, 1},
                 {-1, 2},
@@ -35,7 +35,6 @@ public class Knight extends Piece{
                 possibleMoves.add(target);
             }
         }
-        return possibleMoves;
     }
     /**
      * {@inheritDoc}

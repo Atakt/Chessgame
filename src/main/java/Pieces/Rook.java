@@ -17,13 +17,13 @@ public class Rook extends Piece{
      * {@inheritDoc}
      */
     @Override
-    public Vector<Square> calculatePossibleMoves(Board chessBoard) {
+    public void calculatePossibleMoves(Board chessBoard) {
+        possibleMoves.clear();
         addPosXMoves(possibleMoves, chessBoard);
         addNegYMoves(possibleMoves, chessBoard);
         addNegXMoves(possibleMoves, chessBoard);
         addPosYMoves(possibleMoves, chessBoard);
 
-        return possibleMoves;
     }
     /**
      * Function that add the moves in the positive x direction (straight) to the vector of all moves.

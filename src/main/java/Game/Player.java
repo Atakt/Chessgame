@@ -2,6 +2,7 @@ package Game;
 
 import Pieces.Piece;
 
+import java.util.Collection;
 import java.util.Vector;
 
 /**
@@ -38,13 +39,12 @@ public class Player {
 
     /**
      * Function returning all the possible moves of the player's pieces in one Vector.
-     * @param chessBoard The chessboard of the current game
      * @return All the possible moves of the player's pieces' moves in one collection(Vector)
      */
-    public Vector<Square> getAllPossibleMoves(Board chessBoard){
+    public Vector<Square> getAllPossibleMoves(){
         Vector<Square> allMoves = new Vector<>();
         for (Piece p :alivePieces){
-            allMoves.addAll(p.calculatePossibleMoves(chessBoard));
+            allMoves.addAll(p.getPossibleMoves());
         }
         return allMoves;
     }
@@ -53,12 +53,11 @@ public class Player {
      * Function returning true or false based on whether the square is in check or not. A square is in check if
      * an enemy piece can move to its position. To check if a square is in check we need to check all the moves of the opposing player.
      * @param square The square we are examining whether it is in check or not.
-     * @param chessBoard The board of the current game.
      * @return True if the square is in check, false if it is not.
      */
-    public boolean isSquareInCheck(Square square, Board chessBoard){
+    public boolean isSquareInCheck(Square square){
         Player opposition = game.getOtherPlayer(this);
-        return opposition.getAllPossibleMoves(chessBoard).contains(square);
+        return opposition.getAllPossibleMoves().contains(square);
     }
 
     /**
@@ -97,5 +96,21 @@ public class Player {
      */
     public Vector<Piece> getAlivePieces() {
         return alivePieces;
+    }
+
+    /**
+     * Function to add a piece to the piece of the player
+     * @param piece the piece added to the alivePieces vector
+     */
+    public void addAlivePiece(Piece piece) {
+        alivePieces.add(piece);
+    }
+
+    /**
+     * Function to remove a piece from the alive pieces of the player
+     * @param piece the piece to be removed from the alivePieces vector
+     */
+    public void removeAlivePiece(Piece piece){
+        alivePieces.remove(piece);
     }
 }

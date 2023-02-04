@@ -119,7 +119,7 @@ public class Bishop extends Piece{
      * {@inheritDoc}
      */
     @Override
-    public Vector<Square> calculatePossibleMoves(Board chessBoard) {
+    public void calculatePossibleMoves(Board chessBoard) {
         Vector<Square> moves = new Vector<>();
         boolean[] checkDirections = { // directions to check in
                 true, //positive x, positive y
@@ -132,7 +132,6 @@ public class Bishop extends Piece{
         addNegXPosYMoves(moves, checkDirections, chessBoard);
         addNegXNegYMoves(moves, checkDirections, chessBoard);
         possibleMoves = moves;
-        return possibleMoves;
     }
 
     /**

@@ -13,9 +13,9 @@ public class Pawn extends Piece{
      * {@inheritDoc}
      */
     @Override
-    public Vector<Square> calculatePossibleMoves(Board chessBoard) {
-        if (getColor().equals(Color.WHITE)) {
-
+    public void calculatePossibleMoves(Board chessBoard) {
+        possibleMoves.clear();
+        if (getColor() == Color.WHITE) {
             addWhiteBaseMoves(chessBoard);
             addWhitePawnJumpMoves(chessBoard);
             addWhiteEnPassantMoves(chessBoard);
@@ -24,7 +24,6 @@ public class Pawn extends Piece{
             addBlackPawnJumpMoves(chessBoard);
             addBlackEnPassantMoves(chessBoard);
         }
-        return possibleMoves; // the functions called above all (possibly) alter the contents of the possibleMoves vector
     }
     /**
      * {@inheritDoc}
@@ -47,26 +46,30 @@ public class Pawn extends Piece{
      */
     @Override
     public void move(Square target, Board chessBoard) {
+        calculatePossibleMoves(chessBoard);
         if (target != null) {
-            if(!calculatePossibleMoves(chessBoard).contains(target)) return;
+            if(!possibleMoves.contains(target)) return;
             //if the piece that is moving is a pawn,
             //and it is moving diagonally onto an empty square it must be an EnPassant move
             if (!target.isSquareOccupied()) {
                 if (chessBoard.getSquareAt(target.getX() + 1, target.getY()).getPiece() != null) {
                     if (getColor().equals(Color.WHITE) && chessBoard.getSquareAt(target.getX() + 1, target.getY()).getPiece().getColor() != Color.WHITE) {
                         enPassantMove(target, chessBoard);
+                        calculatePossibleMoves(chessBoard);
                         return;
                     }
                 }
                 if (chessBoard.getSquareAt(target.getX() - 1, target.getY()).getPiece() != null) {
                     if (getColor().equals(Color.BLACK) && chessBoard.getSquareAt(target.getX() - 1, target.getY()).getPiece().getColor() != Color.BLACK) {
                         enPassantMove(target, chessBoard);
+                        calculatePossibleMoves(chessBoard);
                         return;
                     }
                 }
             }
             if(isPawnPromotion(chessBoard)){
                 pawnPromotionMove(target, chessBoard);
+                calculatePossibleMoves(chessBoard);
                 return;
             }
             //normal moves
@@ -75,6 +78,9 @@ public class Pawn extends Piece{
             setPreviousPosition(this.position); // set the previous position, as the one that the piece moves from
             this.position = target; //set the piece's new position
             this.position.setPiece(this); // set the new position's piece as this piece
+
+            getPossibleMoves();
+            calculatePossibleMoves(chessBoard);
         }
     }
 
@@ -172,33 +178,33 @@ public class Pawn extends Piece{
      * if the piece is BLACK, which means it is moving downwards
      * @param chessBoard the chessboard of the current game
      */
-    private void addBlackEnPassantMoves(Board chessBoard){
-        if (getColor() == Color.BLACK) {
-            Square target = chessBoard.getSquareAt(position.getX() + 1, position.getY() - 1); // down and left
-            if (target != null) {
-                Square enPassantSquare = chessBoard.getSquareAt(target.getX() - 1, target.getY());
-                if (enPassantSquare.getPiece() != null) {
-                    int enPassantXDiff = Math.abs(enPassantSquare.getX() - enPassantSquare.getPiece().getPreviousPosition().getX());
-                    if (enPassantXDiff == 2 && enPassantSquare.getPiece().getPosition().getX() == 6) {// the enemy pawn jumped
-                        if ((target.getPiece().getColor() != getColor()) && (target.getPiece().getType() == Type.PAWN)) {
-                            possibleMoves.add(target);
+    private void addBlackEnPassantMoves(Board chessBoard) {
+            if((getColor() == Color.BLACK)&&(position.getX() == 4)) {
+                Square target = chessBoard.getSquareAt(position.getX() + 1, position.getY() - 1); // down and left
+                if (target != null) {
+                    Square enPassantSquare = chessBoard.getSquareAt(target.getX() - 1, target.getY());
+                    if (enPassantSquare.getPiece() != null) {
+                        int enPassantXDiff = Math.abs(enPassantSquare.getX() - enPassantSquare.getPiece().getPreviousPosition().getX());
+                        if (enPassantXDiff == 2 && enPassantSquare.getPiece().getPreviousPosition().getX() == 6) {// the enemy pawn jumped
+                            if ((enPassantSquare.getPiece().getColor() != getColor()) && (enPassantSquare.getPiece().getType() == Type.PAWN)) {
+                                possibleMoves.add(target);
+                            }
+                        }
+                    }
+                }
+                target = chessBoard.getSquareAt(position.getX() + 1, position.getY() + 1); // down and right
+                if (target != null) {
+                    Square enPassantSquare = chessBoard.getSquareAt(target.getX() - 1, target.getY());
+                    if (enPassantSquare.getPiece() != null) {
+                        int enPassantXDiff = Math.abs(enPassantSquare.getX() - enPassantSquare.getPiece().getPreviousPosition().getX());
+                        if (enPassantXDiff == 2 && enPassantSquare.getPiece().getPreviousPosition().getX() == 6) {// the enemy pawn jumped
+                            if ((enPassantSquare.getPiece().getColor() != getColor()) && (enPassantSquare.getPiece().getType() == Type.PAWN)) {
+                                possibleMoves.add(target);
+                            }
                         }
                     }
                 }
             }
-            target = chessBoard.getSquareAt(position.getX() + 1, position.getY() + 1); // down and right
-            if (target != null) {
-                Square enPassantSquare = chessBoard.getSquareAt(target.getX() -1, target.getY());
-                if (enPassantSquare.getPiece() != null) {
-                    int enPassantXDiff = Math.abs(enPassantSquare.getX() - enPassantSquare.getPiece().getPreviousPosition().getX());
-                    if (enPassantXDiff == 2 && enPassantSquare.getPiece().getPosition().getX() == 6) {// the enemy pawn jumped
-                        if ((target.getPiece().getColor() != getColor()) && (target.getPiece().getType() == Type.PAWN)) {
-                            possibleMoves.add(target);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -207,14 +213,14 @@ public class Pawn extends Piece{
      * @param chessBoard the chessboard of the current game
      */
     private void addWhiteEnPassantMoves(Board chessBoard){
-        if (getColor() == Color.WHITE) {
+        if ((getColor() == Color.WHITE)&&(position.getX() == 3)) {
             Square target = chessBoard.getSquareAt(position.getX() - 1, position.getY() - 1); // up and left
             if (target != null) {
                 Square enPassantSquare = chessBoard.getSquareAt(target.getX() + 1, target.getY());
                 if (enPassantSquare.getPiece() != null) {
                     int enPassantXDiff = Math.abs(enPassantSquare.getX() - enPassantSquare.getPiece().getPreviousPosition().getX());
                     if (enPassantXDiff == 2 && enPassantSquare.getPiece().getPreviousPosition().getX() == 1) {// the enemy pawn jumped
-                        if ((target.getPiece().getColor() != getColor()) && (target.getPiece().getType() == Type.PAWN)) {
+                        if ((enPassantSquare.getPiece().getColor() != getColor()) && (enPassantSquare.getPiece().getType() == Type.PAWN)) {
                             possibleMoves.add(target);
                         }
                     }
@@ -225,8 +231,8 @@ public class Pawn extends Piece{
                 Square enPassantSquare = chessBoard.getSquareAt(target.getX() +1, target.getY());
                 if (enPassantSquare.getPiece() != null) {
                     int enPassantXDiff = Math.abs(enPassantSquare.getX() - enPassantSquare.getPiece().getPreviousPosition().getX());
-                    if (enPassantXDiff == 2 && enPassantSquare.getPiece().getPosition().getX() == 1) {// the enemy pawn jumped
-                        if ((target.getPiece().getColor() != getColor()) && (target.getPiece().getType() == Type.PAWN)) {
+                    if (enPassantXDiff == 2 && enPassantSquare.getPiece().getPreviousPosition().getX() == 1) {// the enemy pawn jumped
+                        if ((enPassantSquare.getPiece().getColor() != getColor()) && (enPassantSquare.getPiece().getType() == Type.PAWN)) {
                             possibleMoves.add(target);
                         }
                     }
@@ -288,8 +294,11 @@ public class Pawn extends Piece{
         this.position.setPiece(null); // remove piece from current position(Square)
         setPreviousPosition(this.position); // set the previous position, as the one that the piece moves from
         this.position = target; //set the piece's new position
-        this.position.setPiece(this); // set the new position's piece as this piece
-        this.position.setPiece(null); // preparing to promote pawn, first it needs to be removed from the square
-        this.position.setPiece(new Queen(position, player)); // Auto-Queen promotion, pawn gets replaced with a new queen
+        //this.position.setPiece(this); // set the new position's piece as this piece
+        //this.position.setPiece(null); // preparing to promote pawn, first it needs to be removed from the square
+        Piece queen = new Queen(position, player);
+        this.position.setPiece(queen); // Auto-Queen promotion, pawn gets replaced with a new queen
+        player.addAlivePiece(queen);
+        player.removeAlivePiece(this);
     }
 }

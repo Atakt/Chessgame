@@ -26,18 +26,31 @@ public class Board {
         this.game = game;
         height = x;
         width = y;
-        player1Pieces = null;
-        player2Pieces = null;
+        player1Pieces = new Vector<>();
+        player2Pieces = new Vector<>();
+        initializeBoard();
     }
 
     /**
      * Function to set the pieces on both sides of the board, for both players
      */
     public void initializeBoard(){
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                squares[i][j] = new Square(i, j, null);
+            }
+        }
         setPlayer2Pieces(height, width);
         setPlayer1Pieces(height, width);
         game.getPlayer1().setAlivePieces(player1Pieces);
         game.getPlayer2().setAlivePieces(player2Pieces);
+
+        for(Piece piece : player1Pieces){
+            piece.calculatePossibleMoves(this);
+        }
+        for (Piece piece : player2Pieces){
+            piece.calculatePossibleMoves(this);
+        }
     }
     /**
      * Function returning the height (x) of the board
@@ -56,30 +69,37 @@ public class Board {
     }
 
     /**
+     * Function returning the current game - the game that is played on the board
+     * @return the current game
+     */
+    public Game getGame() {
+        return game;
+    }
+
+    /**
      * Function to set the pieces of the WHITE player on the board
      * @param x the number of rows of the chessboard
      * @param y the number of columns of the chessboard
      */
     private void setPlayer1Pieces(int x, int y) {
         for(int i = 0; i < y; i++){ // setting row of white pawns
-            squares[x-2][i] = new Square(x-2, i, new Pawn(squares[x-2][i], game.getPlayer1()));
-            assert player1Pieces != null;
+            squares[x-2][i].setPiece(new Pawn(squares[x-2][i], game.getPlayer1()));
+            //assert player1Pieces != null;
             player1Pieces.add(squares[x-2][i].getPiece());
         }
-        squares[x-1][0] = new Square(x-1, 0, new Rook(squares[x-1][0], game.getPlayer1()));
-        squares[x-1][1] = new Square(x-1, 1, new Knight(squares[x-1][1], game.getPlayer1()));
-        squares[x-1][2] = new Square(x-1, 2, new Bishop(squares[x-1][2], game.getPlayer1()));
-        squares[x-1][3] = new Square(x-1, 3, new Queen(squares[x-1][3], game.getPlayer1()));
-        squares[x-1][4] = new Square(x-1, 4, new King(squares[x-1][4], game.getPlayer1()));
-        squares[x-1][5] = new Square(x-1, 5, new Bishop(squares[x-1][5], game.getPlayer1()));
-        squares[x-1][6] = new Square(x-1, 6, new Knight(squares[x-1][6], game.getPlayer1()));
-        squares[x-1][7] = new Square(x-1, 7, new Rook(squares[x-1][7], game.getPlayer1()));
+        squares[x-1][0].setPiece(new Rook(squares[x-1][0], game.getPlayer1()));
+        squares[x-1][1].setPiece(new Knight(squares[x-1][1], game.getPlayer1()));
+        squares[x-1][2].setPiece(new Bishop(squares[x-1][2], game.getPlayer1()));
+        squares[x-1][3].setPiece(new Queen(squares[x-1][3], game.getPlayer1()));
+        squares[x-1][4].setPiece(new King(squares[x-1][4], game.getPlayer1()));
+        squares[x-1][5].setPiece(new Bishop(squares[x-1][5], game.getPlayer1()));
+        squares[x-1][6].setPiece(new Knight(squares[x-1][6], game.getPlayer1()));
+        squares[x-1][7].setPiece(new Rook(squares[x-1][7], game.getPlayer1()));
 
         if(squares[x-1].length > 8){// if board is not standard size, fill the rest of the space with pawns
             for(int i = 8; i < y; i++){
-                squares[x-1][i] = new Square(x-1, i, new Pawn(squares[x-1][i], game.getPlayer1()));
+                squares[x-1][i].setPiece(new Pawn(squares[x-1][i], game.getPlayer1()));
             }
-
         }
         //adding the last row of pieces to the piece vector
         for(int i = 0; i < y; i++){
@@ -94,24 +114,23 @@ public class Board {
      */
     private void setPlayer2Pieces(int x, int y) {
         for(int i = 0; i < y; i++){ // setting row of black pawns and adding them to the piece vector
-            squares[1][i] = new Square(1, i, new Pawn(squares[1][i], game.getPlayer2()));
-            assert player2Pieces != null;
+            squares[1][i].setPiece(new Pawn(squares[1][i], game.getPlayer2()));
+            //assert player2Pieces != null;
             player2Pieces.add(squares[1][i].getPiece());
         }
-        squares[0][0] = new Square(0, 0, new Rook(squares[0][0], game.getPlayer2()));
-        squares[0][1] = new Square(0, 1, new Knight(squares[0][1], game.getPlayer2()));
-        squares[0][2] = new Square(0, 2, new Bishop(squares[0][2], game.getPlayer2()));
-        squares[0][3] = new Square(0, 3, new Queen(squares[0][3], game.getPlayer2()));
-        squares[0][4] = new Square(0, 4, new King(squares[0][4], game.getPlayer2()));
-        squares[0][5] = new Square(0, 5, new Bishop(squares[0][5], game.getPlayer2()));
-        squares[0][6] = new Square(0, 6, new Knight(squares[0][6], game.getPlayer2()));
-        squares[0][7] = new Square(0, 7, new Rook(squares[0][7], game.getPlayer2()));
+        squares[0][0].setPiece(new Rook(squares[0][0], game.getPlayer2()));
+        squares[0][1].setPiece(new Knight(squares[0][1], game.getPlayer2()));
+        squares[0][2].setPiece(new Bishop(squares[0][2], game.getPlayer2()));
+        squares[0][3].setPiece(new Queen(squares[0][3], game.getPlayer2()));
+        squares[0][4].setPiece(new King(squares[0][4], game.getPlayer2()));
+        squares[0][5].setPiece(new Bishop(squares[0][5], game.getPlayer2()));
+        squares[0][6].setPiece(new Knight(squares[0][6], game.getPlayer2()));
+        squares[0][7].setPiece(new Rook(squares[0][7], game.getPlayer2()));
 
         if(squares[0].length > 8){// if board is not standard size, fill the rest of the space with pawns
             for(int i = 8; i < y; i++){
-                squares[0][i] = new Square(0, i, new Pawn(squares[0][i], game.getPlayer2()));
+                squares[0][i].setPiece(new Pawn(squares[0][i], game.getPlayer2()));
             }
-
         }
         //adding the last row of pieces to the piece vector
         for(int i = 0; i < y; i++){
@@ -150,15 +169,18 @@ public class Board {
      * @param piece the piece moved
      */
     public void movePiece(Square target, Piece piece){
+        piece.calculatePossibleMoves(this);
+        removeKingCompromiseMove(piece, piece.getPlayer()); // removing illegal moves that would put the king in check
+
+        if(!piece.getPossibleMoves().contains(target)) return; // the move cant happen
         piece.move(target, this); // moving piece
         //need to check checkmate after a move
         Player enemyPlayer = game.getOtherPlayer(piece.getPlayer());
         if(isCheckMated(enemyPlayer, this)){// if the player that didn't move this turn is checkmated
-
             game.setGameOver(true);
             game.setWinner(piece.getPlayer());
         }
-
+        game.endTurn(); // after the move it's the next player's turn
     }
 
     /**
@@ -168,19 +190,20 @@ public class Board {
      * @return true is the player is checkmated false if the player isn't checkmated
      */
     private boolean isCheckMated(@NotNull Player player, Board chessBoard){
-        if(player.getAllPossibleMoves(chessBoard).isEmpty()){ // player has no moves left
+        if(player.getAllPossibleMoves().isEmpty()){ // player has no moves left
             return true;
         }
 
-        boolean checkMate = true;
+        boolean checkMate = false;
         Piece king = player.getKing(); // the king piece of the player
-        if(!king.calculatePossibleMoves(chessBoard).isEmpty()){// the king still has legal moves left
+        if(!king.getPossibleMoves().isEmpty()){// the king still has legal moves left
             return false;
         }
-        if(player.isSquareInCheck(king.getPosition(), chessBoard)){//the king is in check
+        if(player.isSquareInCheck(king.getPosition())){//the king is in check
+            checkMate = true;
             // we need to check whether any possible moves would make it so that the king would not be in check
             for(Piece actualPiece : player.getAlivePieces()){// checking for each piece of the player
-                Vector<Square> moves = actualPiece.calculatePossibleMoves(this);
+                Vector<Square> moves = actualPiece.getPossibleMoves();
 
                 for (Square actualSquare : moves){
                     // clone board
@@ -197,7 +220,7 @@ public class Board {
                     movedPiece.move(targetSquare, boardCopy); // moving the piece to the target square (doing all on the cloned board)
 
                     Square kingSquare = boardCopy.getSquareAt(king.getPosition().getX(), king.getPosition().getY());
-                    if(!player.isSquareInCheck(kingSquare, boardCopy)){ // if as a result of the move the square where the king stands is no longer in check
+                    if(!player.isSquareInCheck(kingSquare)){ // if as a result of the move the square where the king stands is no longer in check
                         //it means the player is not checkmated
                         return false;
 
@@ -215,10 +238,10 @@ public class Board {
      */
     @Override
     protected Board clone(){
-        Board copy = new Board(game , height, width); // create a new board named copy
+        Board copy = new Board(game, height, width); // create a new board named copy
         //Fill the same squares in the new board as in the original
-        for(int i = 0; i < squares.length; i++) {
-            for (int j = 0; j < squares[0].length; j++) {
+        for(int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 copy.getSquareAt(i,j).setPiece(null);
                 if (squares[i][j].isSquareOccupied()){//if there is a piece on the original board on the square
                     Piece piece = squares[i][j].getPiece().clone();
@@ -227,6 +250,30 @@ public class Board {
             }
         }
         return  copy;
+    }
+
+    /**
+     * Function to remove all the moves that would be illegal because they would put the king into possible check, which is not allowed
+     * You cannot "checkmate yourself"
+     * @param piece the piece that's moves are removed
+     * @param player the player that the piece belongs to
+     */
+    private void removeKingCompromiseMove(Piece piece, Player player){
+        Board copyBoard = this.clone();
+        Vector<Square> compromiseMoves = new Vector<>();
+        Piece movedPiece = copyBoard.getSquareAt(piece.getPosition().getX(), piece.getPosition().getY()).getPiece();
+        Piece king = player.getKing();
+        Vector<Square> moves = movedPiece.getPossibleMoves();
+        for(int i = 0; i < moves.size(); i++){
+            Square move = moves.get(i);
+            Square prev = getSquareAt(movedPiece.getPosition().getX(), movedPiece.getPosition().getY()); // the square where the piece is moving from, and where we need to move it back
+            movedPiece.move(move, copyBoard);
+            if(player.isSquareInCheck(king.getPosition())){
+                compromiseMoves.add(move);
+            }
+            movedPiece.move(prev, copyBoard); // moving back and continuing iteration
+        }
+        piece.removePossibleMove(compromiseMoves);
     }
 
 }

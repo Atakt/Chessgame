@@ -2,15 +2,20 @@ package Game;
 
 public class Game {
     private final Board gameBoard;
-    private Player p1, p2;
-    private int x, y;
+    private final Player p1;
+    private final Player p2;
     private boolean gameOver;
     private Player winner;
+    private Color turn;
 
-    public Game() {
-        gameBoard = new Board(this, x, y);
+    public Game(int x, int y) {
+        p1 = new Player(Color.WHITE, this);
+        p2 = new Player(Color.BLACK, this);
+        turn = Color.WHITE;
         winner = null;
         gameOver = false;
+        gameBoard = new Board(this, x, y);
+
     }
 
     /**
@@ -71,5 +76,32 @@ public class Game {
      */
     public Player getWinner() {
         return winner;
+    }
+
+    /**
+     * Function returning the chessboard;
+     * @return the board the current game is played on
+     */
+    public Board getBoard() {
+        return gameBoard;
+    }
+
+    /**
+     * Function to end the turn, set it to the next players turn
+     */
+    public void endTurn(){
+        if(turn.equals(Color.WHITE)){
+            turn = Color.BLACK;
+        }else {
+            turn = Color.WHITE;
+        }
+    }
+
+    /**
+     * Function to get the color of the player whose turn it is currently
+     * @return the current turn (color)
+     */
+    public Color getTurn() {
+        return turn;
     }
 }

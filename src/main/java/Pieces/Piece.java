@@ -2,6 +2,7 @@ package Pieces;
 
 import Game.*;
 
+import java.util.Collection;
 import java.util.Vector;
 
 public abstract class Piece {
@@ -14,14 +15,24 @@ public abstract class Piece {
         this.position = position;
         this.previousPosition = null;
         this.player = player;
+        possibleMoves = new Vector<>();
     }
 
     /**
      * Function that calculates and returns the possible Squares that the piece can move to
      * @param chessBoard The chessboard of the actual game
-     * @return All the possible moves in a Vector
      */
-    public abstract Vector<Square> calculatePossibleMoves(Board chessBoard);
+    public abstract void calculatePossibleMoves(Board chessBoard);
+
+    /**
+     * Function returning the possible moves in a vector of squares
+     * @return the possibleMoves Vector
+     */
+
+    public Vector<Square> getPossibleMoves(){
+        return possibleMoves;
+    }
+
 
     /**
      * Funnction returning the type of the piece
@@ -105,6 +116,8 @@ public abstract class Piece {
             setPreviousPosition(this.position); // set the previous position, as the one that the piece moves from
             this.position = target; //set the piece's new position
             this.position.setPiece(this); // set the new position's piece as this piece
+
+            calculatePossibleMoves(chessBoard);
         }
     }
 
@@ -114,5 +127,13 @@ public abstract class Piece {
      */
     public Square getPreviousPosition(){
         return previousPosition;
+    }
+
+    /**
+     * Function to remove unwanted/illegal moves from the possible moves collection
+     * @param moves the collection of moves to be removed
+     */
+    public void removePossibleMove(Collection<Square> moves){
+        possibleMoves.removeAll(moves);
     }
 }

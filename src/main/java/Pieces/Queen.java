@@ -17,7 +17,8 @@ public class Queen extends Piece{
      * {@inheritDoc}
      */
     @Override
-    public Vector<Square> calculatePossibleMoves(Board chessBoard) {
+    public void calculatePossibleMoves(Board chessBoard) {
+        possibleMoves.clear();
         // First adding Bishop type moves
         boolean[] checkDirections = {true, true, true, true}; // directions, that need to be checked for
         //adding Bishop type moves
@@ -32,7 +33,6 @@ public class Queen extends Piece{
         addNegXMoves(possibleMoves, chessBoard);
         addPosYMoves(possibleMoves, chessBoard);
 
-        return possibleMoves;
     }
     /**
      * Function that calculates the possible moves in the positive x and positive y directions
