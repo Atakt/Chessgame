@@ -131,9 +131,17 @@ public abstract class Piece {
 
     /**
      * Function to remove unwanted/illegal moves from the possible moves collection
-     * @param moves the collection of moves to be removed
+     * @param moves the collection of moves with characteristics that need to be removed
      */
     public void removePossibleMove(Collection<Square> moves){
-        possibleMoves.removeAll(moves);
+        Collection<Square> toRemove = new Vector<>();
+        for(Square posMove : possibleMoves){
+            for(Square removableMove : moves){
+                if((posMove.getX() == removableMove.getX()) && (posMove.getY() == removableMove.getY())){
+                    toRemove.add(posMove);
+                }
+            }
+        }
+        possibleMoves.removeAll(toRemove);
     }
 }

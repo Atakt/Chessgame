@@ -4,26 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="movePiece and helper function implemented">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/ChessBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/ChessGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/TitleScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Game/BoardTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Pieces/PawnTest.java" afterDir="false" />
+    <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="Tests, Bugfixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Square.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Pawn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +173,8 @@
       <workItem from="1675208688726" duration="2173000" />
       <workItem from="1675251273288" duration="11137000" />
       <workItem from="1675357622036" duration="11771000" />
-      <workItem from="1675509825600" duration="6568000" />
+      <workItem from="1675509825600" duration="6635000" />
+      <workItem from="1675523416284" duration="462000" />
     </task>
     <task id="LOCAL-00001" summary="Basics - Classes, Constructors, Board, Game and Square classes worked on">
       <created>1674338501353</created>
@@ -234,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674669404097</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Tests, Bugfixes">
+      <created>1675516636399</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1675516636399</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,21 +246,7 @@
     <MESSAGE value="Basics - Classes, Constructors, Board, Game and Square classes worked on" />
     <MESSAGE value="Movement in pieces implemented" />
     <MESSAGE value="movePiece and helper function implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="movePiece and helper function implemented" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/Game/Board.java</url>
-          <line>260</line>
-          <properties class="Game.Board" method="removeKingCompromiseMove">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Tests, Bugfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tests, Bugfixes" />
   </component>
 </project>
