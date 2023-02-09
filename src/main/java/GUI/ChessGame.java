@@ -9,7 +9,11 @@ public class ChessGame {
     private static Game game;
     public static void main(String[] args) {
         Game game = new Game(8, 8);
-        ChessBoard gameBoard = new ChessBoard(game);
+        try {
+            ChessBoard gameBoard = new ChessBoard(game);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

@@ -4,13 +4,11 @@ import Game.Game;
 import Game.Board;
 import Game.Square;
 import Pieces.Piece;
-import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -22,12 +20,33 @@ public class ChessBoard {
     private final Board board;
     private Square destination;
     private Piece movedPiece;
+    private final ImageIcon BLACKPAWN = new ImageIcon(ImageIO.read(new File("textures/pieces/BLACK/PAWN.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon BLACKKING = new ImageIcon(ImageIO.read(new File("textures/pieces/BLACK/KING.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon BLACKKNIGHT = new ImageIcon(ImageIO.read(new File("textures/pieces/BLACK/KNIGHT.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon BLACKBIHSOP = new ImageIcon(ImageIO.read(new File("textures/pieces/BLACK/BISHOP.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon BLACKROOK = new ImageIcon(ImageIO.read(new File("textures/pieces/BLACK/ROOK.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon BLACKQUEEN = new ImageIcon(ImageIO.read(new File("textures/pieces/BLACK/QUEEN.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon WHITEPAWN = new ImageIcon(ImageIO.read(new File("textures/pieces/WHITE/PAWN.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon WHITEKING = new ImageIcon(ImageIO.read(new File("textures/pieces/WHITE/KING.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon WHITEKNIGHT = new ImageIcon(ImageIO.read(new File("textures/pieces/WHITE/KNIGHT.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon WHITEBIHSOP = new ImageIcon(ImageIO.read(new File("textures/pieces/WHITE/BISHOP.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon WHITEROOK = new ImageIcon(ImageIO.read(new File("textures/pieces/WHITE/ROOK.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon WHITEQUEEN = new ImageIcon(ImageIO.read(new File("textures/pieces/WHITE/QUEEN.png")).getScaledInstance(75,75, Image.SCALE_SMOOTH));
+    private final ImageIcon GREYDOT = new ImageIcon(ImageIO.read(new File("textures/other/greydot.png")).getScaledInstance(30,30,Image.SCALE_SMOOTH));
+    private final ImageIcon[] BlackIcons;
+    private final ImageIcon[] WhiteIcons;
 
-    public ChessBoard(Game game){
+
+    public ChessBoard(Game game) throws IOException {
         boardFrame = new JFrame("Chess");
         boardFrame.setLayout(new BorderLayout());
 
         board = game.getBoard();
+
+        BlackIcons = new ImageIcon[6];
+        WhiteIcons = new ImageIcon[6];
+        addBlackPieceIcons();
+        addWhitePieceIcons();
 
         JMenuBar boardMenuBar = new JMenuBar();
         boardMenuBar.add(createFileMenu());
@@ -40,6 +59,23 @@ public class ChessBoard {
         boardFrame.setSize(800,800);
         boardFrame.setVisible(true);
     }
+    private void addBlackPieceIcons(){
+        BlackIcons[0] = BLACKPAWN;
+        BlackIcons[1] = BLACKROOK;
+        BlackIcons[2] = BLACKKNIGHT;
+        BlackIcons[3] = BLACKBIHSOP;
+        BlackIcons[4] = BLACKKING;
+        BlackIcons[5] = BLACKQUEEN;
+    }
+    private void addWhitePieceIcons(){
+        WhiteIcons[0] = WHITEPAWN;
+        WhiteIcons[1] = WHITEROOK;
+        WhiteIcons[2] = WHITEKNIGHT;
+        WhiteIcons[3] = WHITEBIHSOP;
+        WhiteIcons[4] = WHITEKING;
+        WhiteIcons[5] = WHITEQUEEN;
+    }
+
 
     private JMenu createFileMenu() {
         JMenu fileMenu = new JMenu("File");
@@ -70,8 +106,8 @@ public class ChessBoard {
     private class BoardPanel extends JPanel{
         private Game game;
         private SquarePanel[][] squares;
-        private int rows;
-        private int cols;
+        private final int rows;
+        private final int cols;
 
         private BoardPanel(Game game) {
             this.game = game;
@@ -100,39 +136,12 @@ public class ChessBoard {
                 for(int j = 0; j < cols; j++){
                     squares[i][j].reDrawSquare(board);
                     squares[i][j].displayLegalMoves();
+
                 }
             }
-            //displayLegalMoves();
             validate();
             repaint();
         }
-
-        /**
-         * Function drawing the possible moves of a piece. To do this it adds a grey circle icon to the corresponding squares.
-         */
-
-        public void displayLegalMoves() {
-            if(movedPiece != null){
-                Vector<Square> moves = movedPiece.getPossibleMoves();
-                for(Square possibleMove : moves){
-                    for(int i = 0; i < rows; i++){
-                        for(int j = 0; j < cols; j++){
-                            if((possibleMove.getX() == i) && (possibleMove.getY() == j)){
-                                BufferedImage image = null;
-                                try {
-                                    image = ImageIO.read(new File("textures/other/greydot.png"));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                this.add(new JLabel(new ImageIcon(image)));
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-
     }
 
     private class SquarePanel extends JPanel{
@@ -157,7 +166,7 @@ public class ChessBoard {
                     if(SwingUtilities.isRightMouseButton(e)){
                         destination = null;
                         movedPiece = null;
-                        //boardPanel.reDrawBoard();
+                        boardPanel.reDrawBoard();
                     }
                     else if(SwingUtilities.isLeftMouseButton(e)){
                         if(movedPiece == null){
@@ -215,15 +224,11 @@ public class ChessBoard {
             Piece piece = board.getSquareAt(row, col).getPiece();
             removeAll();
             if(board.getSquareAt(row, col).isSquareOccupied()){
-                BufferedImage image = null;
-                try {
-                    String piecePNGPath = "textures/pieces/";
-                    image = ImageIO.read(new File(piecePNGPath + piece.getColor().toString() + "/"
-                            + piece.getType().toString() + ".png"));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if(piece.getColor().toString().equals("WHITE")){
+                    this.add(new JLabel(WhiteIcons[piece.getType().getNumber()]), BorderLayout.CENTER);
+                }else if(piece.getColor().toString().equals("BLACK")){
+                    this.add(new JLabel(BlackIcons[piece.getType().getNumber()]), BorderLayout.CENTER);
                 }
-                this.add(new JLabel(new ImageIcon(image.getScaledInstance(75,75, Image.SCALE_FAST))), BorderLayout.CENTER);
             }
             validate();
             repaint();
@@ -244,25 +249,17 @@ public class ChessBoard {
             addSquareIcon(board);
             validate();
             repaint();
-
-
         }
 
-
+        /**
+         * Function drawing the possible moves of a piece. To do this it adds a grey circle icon to the corresponding squares.
+         */
         public void displayLegalMoves() {
             if (movedPiece != null){
                 Vector<Square> moves = movedPiece.getPossibleMoves();
                 for (Square legalMove : moves) {
                     if ((legalMove.getX() == row) && (legalMove.getY() == col)) {
-                        try{
-                            BufferedImage image = ImageIO.read(new File("textures/other/greydot.png"));
-
-                            this.add(new JLabel(new ImageIcon(image.getScaledInstance(30,30, Image.SCALE_FAST))), BorderLayout.CENTER);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                            this.add(new JLabel(GREYDOT), BorderLayout.CENTER);
                     }
                 }
             }
