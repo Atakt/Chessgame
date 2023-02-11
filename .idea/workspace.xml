@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="Fixed input lag&#10;Minor clean-ups">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ChessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Color.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pieces/Pawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +178,8 @@
       <workItem from="1675509825600" duration="6635000" />
       <workItem from="1675523416284" duration="462000" />
       <workItem from="1675875259001" duration="806000" />
-      <workItem from="1675940298510" duration="5037000" />
+      <workItem from="1675940298510" duration="5183000" />
+      <workItem from="1676133388534" duration="4042000" />
     </task>
     <task id="LOCAL-00001" summary="Basics - Classes, Constructors, Board, Game and Square classes worked on">
       <created>1674338501353</created>
@@ -237,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675875465572</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed input lag&#10;Minor clean-ups">
+      <created>1675945477982</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1675945477982</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
