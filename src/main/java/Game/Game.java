@@ -22,7 +22,7 @@ public class Game {
      * function returning the white player
      * @return the WHITE player
      */
-    Player getPlayer1(){
+    public Player getPlayer1(){
         return p1;
     }
 
@@ -30,7 +30,7 @@ public class Game {
      * function returning the black player
      * @return the BLACK player
      */
-    Player getPlayer2(){
+    public Player getPlayer2(){
         return p2;
     }
 

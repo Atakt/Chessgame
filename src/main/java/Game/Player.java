@@ -153,4 +153,12 @@ public class Player {
     public Game getGame() {
         return game;
     }
+
+    /**
+     * Function returning the taken pieces of the enemy in a vector
+     * @return the takenEnemyPieces vector
+     */
+    public Vector<Piece> getTakenEnemyPieces() {
+        return takenEnemyPieces;
+    }
 }

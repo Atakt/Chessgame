@@ -1,6 +1,7 @@
 package GUI;
 
 import Game.Game;
+import Game.Player;
 import Game.Board;
 import Game.Square;
 import Pieces.Piece;
@@ -36,6 +37,8 @@ public class ChessBoard {
     private final ImageIcon[] BlackIcons;
     private final ImageIcon[] WhiteIcons;
 
+    private final PiecePanel piecePanel;
+
 
     public ChessBoard(Game game) throws IOException {
         boardFrame = new JFrame("Chess");
@@ -55,8 +58,12 @@ public class ChessBoard {
         boardPanel = new BoardPanel(game);
         boardFrame.add(boardPanel, BorderLayout.CENTER);
 
+        piecePanel = new PiecePanel(game);
+        boardFrame.add(piecePanel, BorderLayout.EAST);
+
         boardFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        boardFrame.setSize(800,800);
+        //boardFrame.pack();
+        boardFrame.setSize(1000,800);
         boardFrame.setVisible(true);
     }
     private void addBlackPieceIcons(){
@@ -104,7 +111,7 @@ public class ChessBoard {
     }
 
     private class BoardPanel extends JPanel{
-        private Game game;
+        private final Game game;
         private SquarePanel[][] squares;
         private final int rows;
         private final int cols;
@@ -115,7 +122,7 @@ public class ChessBoard {
             cols = game.getBoard().getWidth();
             setLayout(new GridLayout(rows, cols));
 
-            // adding the square s to their individual places;
+            // adding the squares to their individual places;
             squares = new SquarePanel[rows][cols];
             for(int i = 0; i < rows; i++){
                 for(int j = 0; j < cols; j++){
@@ -266,5 +273,45 @@ public class ChessBoard {
         }
     }
 
+    /**
+     * Class to display the pieces taken during the game on the side
+     */
+    private class PiecePanel extends JPanel{
+        Game game;
+        TakenPiecePanel p1Panel;
+        TakenPiecePanel p2Panel;
+
+
+        public PiecePanel(Game game){
+            this.game = game;
+            this.setPreferredSize(new Dimension(200,800));
+
+            p1Panel = new TakenPiecePanel(game.getPlayer1());
+            p2Panel = new TakenPiecePanel(game.getPlayer2());
+
+            setLayout(new BorderLayout());
+            add(p1Panel, BorderLayout.EAST);
+            add(p2Panel, BorderLayout.WEST);
+
+        }
+
+        /**
+         * Class to display the pieces taken by one player on the Pieces panel
+         */
+        private class TakenPiecePanel extends JPanel{
+            private final Vector<Piece> takenPieces;
+            Player player;
+
+            public TakenPiecePanel(Player player){
+
+                setPreferredSize(new Dimension(100,800));
+                this.player = player;
+                takenPieces = player.getTakenEnemyPieces();
+
+                setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            }
+        }
+
+    }
 
 }
