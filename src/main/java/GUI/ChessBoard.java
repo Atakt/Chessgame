@@ -154,7 +154,7 @@ public class ChessBoard {
     }
 
     private class SquarePanel extends JPanel{
-        private static final Color LIGHT_COLOR = Color.decode("#eeeed2") ;
+        private static final Color LIGHT_COLOR = Color.decode("#eeeed2");
         private static final Color DARK_COLOR = Color.decode("#769656");
         private final int row;
         private final int col;
@@ -288,14 +288,15 @@ public class ChessBoard {
 
 
         public PiecePanel(Game game){
+
             this.game = game;
             this.setPreferredSize(new Dimension(200,800));
 
             p1Panel = new TakenPiecePanel(game.getPlayer1());
             p2Panel = new TakenPiecePanel(game.getPlayer2());
 
-            p1Panel.setBackground(Color.red);
-            p2Panel.setBackground(Color.green);
+            p1Panel.setBackground(SquarePanel.LIGHT_COLOR);
+            p2Panel.setBackground(SquarePanel.DARK_COLOR);
             p1Panel.add(new JLabel("WHITE"), BorderLayout.CENTER);
             p2Panel.add(new JLabel("BLACK"), BorderLayout.CENTER);
 
