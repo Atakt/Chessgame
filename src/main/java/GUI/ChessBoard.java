@@ -5,6 +5,7 @@ import Game.Player;
 import Game.Board;
 import Game.Square;
 import Pieces.Piece;
+//import Game.Color;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -149,6 +150,7 @@ public class ChessBoard {
             validate();
             repaint();
         }
+
     }
 
     private class SquarePanel extends JPanel{
@@ -208,7 +210,7 @@ public class ChessBoard {
 
                         }
                         boardPanel.reDrawBoard();
-
+                        piecePanel.addTakenPieceIcons();
                     }
                 }
                 @Override
@@ -224,6 +226,8 @@ public class ChessBoard {
                 public void mouseExited(MouseEvent e) {
                 }
             });
+
+
 
             validate();
         }
@@ -271,6 +275,7 @@ public class ChessBoard {
                 }
             }
         }
+
     }
 
     /**
@@ -289,10 +294,19 @@ public class ChessBoard {
             p1Panel = new TakenPiecePanel(game.getPlayer1());
             p2Panel = new TakenPiecePanel(game.getPlayer2());
 
+            p1Panel.setBackground(Color.red);
+            p2Panel.setBackground(Color.green);
+            p1Panel.add(new JLabel("WHITE"), BorderLayout.CENTER);
+            p2Panel.add(new JLabel("BLACK"), BorderLayout.CENTER);
+
             setLayout(new BorderLayout());
             add(p1Panel, BorderLayout.EAST);
             add(p2Panel, BorderLayout.WEST);
 
+        }
+        public void addTakenPieceIcons(){
+            p1Panel.addPieceIcons();
+            p2Panel.addPieceIcons();
         }
 
         /**
@@ -308,7 +322,29 @@ public class ChessBoard {
                 this.player = player;
                 takenPieces = player.getTakenEnemyPieces();
 
+
                 setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+                validate();
+
+            }
+            public void addPieceIcons(){
+                ImageIcon[] icons;
+                if(player.getColor().toString().equals("WHITE")){
+                    icons = BlackIcons;
+                }else {
+                    icons = WhiteIcons;
+                }
+
+                removeAll();
+                for(Piece piece : takenPieces) {
+                    Image img = icons[piece.getType().getNumber()].getImage();
+                    Image newimg = img.getScaledInstance(45,45, Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(newimg);
+                    this.add(new JLabel(icon));
+                }
+                validate();
+                repaint();
             }
         }
 

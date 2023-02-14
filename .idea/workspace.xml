@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="Fixed en-passant move&#10;Code clean-ups">
+    <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="New Feature - Panel to show taken pieces">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +20,13 @@
         <option value="Class" />
         <option value="JUnit5 Test Class" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
     </option>
   </component>
   <component name="MarkdownSettingsMigration">
@@ -181,7 +186,8 @@
       <workItem from="1675940298510" duration="5183000" />
       <workItem from="1676133388534" duration="4291000" />
       <workItem from="1676140045025" duration="3936000" />
-      <workItem from="1676206819814" duration="1986000" />
+      <workItem from="1676206819814" duration="2419000" />
+      <workItem from="1676405193865" duration="6572000" />
     </task>
     <task id="LOCAL-00001" summary="Basics - Classes, Constructors, Board, Game and Square classes worked on">
       <created>1674338501353</created>
@@ -253,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676137675729</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="New Feature - Panel to show taken pieces">
+      <created>1676315945165</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1676315945165</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +292,7 @@
     <MESSAGE value="Fixed input lag&#10;Minor clean-ups" />
     <MESSAGE value="Fixed en-passant move" />
     <MESSAGE value="Fixed en-passant move&#10;Code clean-ups" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed en-passant move&#10;Code clean-ups" />
+    <MESSAGE value="New Feature - Panel to show taken pieces" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Feature - Panel to show taken pieces" />
   </component>
 </project>
