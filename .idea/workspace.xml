@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="Fixed input lag&#10;Minor clean-ups">
+    <list default="true" id="1dc793b7-063f-47b0-b163-85e62c6c2801" name="Changes" comment="Pieces get added to side panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ChessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Color.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Game/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game/Type.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +20,13 @@
         <option value="Class" />
         <option value="JUnit5 Test Class" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
     </option>
   </component>
   <component name="MarkdownSettingsMigration">
@@ -46,25 +50,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ToolWindowMessages.ShowToolbar": "false",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -179,7 +184,11 @@
       <workItem from="1675509825600" duration="6635000" />
       <workItem from="1675523416284" duration="462000" />
       <workItem from="1675875259001" duration="806000" />
-      <workItem from="1675940298510" duration="5037000" />
+      <workItem from="1675940298510" duration="5183000" />
+      <workItem from="1676133388534" duration="4291000" />
+      <workItem from="1676140045025" duration="3936000" />
+      <workItem from="1676206819814" duration="2419000" />
+      <workItem from="1676405193865" duration="7466000" />
     </task>
     <task id="LOCAL-00001" summary="Basics - Classes, Constructors, Board, Game and Square classes worked on">
       <created>1674338501353</created>
@@ -237,7 +246,35 @@
       <option name="project" value="LOCAL" />
       <updated>1675875465572</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed input lag&#10;Minor clean-ups">
+      <created>1675945477982</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1675945477982</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fixed en-passant move&#10;Code clean-ups">
+      <created>1676137675729</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1676137675729</updated>
+    </task>
+    <task id="LOCAL-00011" summary="New Feature - Panel to show taken pieces">
+      <created>1676315945165</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1676315945165</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Pieces get added to side panel">
+      <created>1676415763009</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1676415763009</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,6 +298,10 @@
     <MESSAGE value="Tests, Bugfixes" />
     <MESSAGE value="Piece.removePossibleMove function updated" />
     <MESSAGE value="Fixed input lag&#10;Minor clean-ups" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed input lag&#10;Minor clean-ups" />
+    <MESSAGE value="Fixed en-passant move" />
+    <MESSAGE value="Fixed en-passant move&#10;Code clean-ups" />
+    <MESSAGE value="New Feature - Panel to show taken pieces" />
+    <MESSAGE value="Pieces get added to side panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pieces get added to side panel" />
   </component>
 </project>

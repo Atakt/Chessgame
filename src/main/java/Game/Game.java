@@ -22,7 +22,7 @@ public class Game {
      * function returning the white player
      * @return the WHITE player
      */
-    Player getPlayer1(){
+    public Player getPlayer1(){
         return p1;
     }
 
@@ -30,7 +30,7 @@ public class Game {
      * function returning the black player
      * @return the BLACK player
      */
-    Player getPlayer2(){
+    public Player getPlayer2(){
         return p2;
     }
 
@@ -39,7 +39,7 @@ public class Game {
      * @param p the player that we would like the opposing player to
      * @return the opposing player to the p parameter
      */
-    Player getOtherPlayer(Player p){
+    public Player getOtherPlayer(Player p){
         if(p == p1) return p2;
         else {
             return p1;

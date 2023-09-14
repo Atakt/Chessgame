@@ -1,9 +1,11 @@
 package GUI;
 
 import Game.Game;
+import Game.Player;
 import Game.Board;
 import Game.Square;
 import Pieces.Piece;
+//import Game.Color;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -36,6 +38,8 @@ public class ChessBoard {
     private final ImageIcon[] BlackIcons;
     private final ImageIcon[] WhiteIcons;
 
+    private final PiecePanel piecePanel;
+
 
     public ChessBoard(Game game) throws IOException {
         boardFrame = new JFrame("Chess");
@@ -55,8 +59,12 @@ public class ChessBoard {
         boardPanel = new BoardPanel(game);
         boardFrame.add(boardPanel, BorderLayout.CENTER);
 
+        piecePanel = new PiecePanel(game);
+        boardFrame.add(piecePanel, BorderLayout.EAST);
+
         boardFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        boardFrame.setSize(800,800);
+        //boardFrame.pack();
+        boardFrame.setSize(1000,800);
         boardFrame.setVisible(true);
     }
     private void addBlackPieceIcons(){
@@ -104,7 +112,7 @@ public class ChessBoard {
     }
 
     private class BoardPanel extends JPanel{
-        private Game game;
+        private final Game game;
         private SquarePanel[][] squares;
         private final int rows;
         private final int cols;
@@ -115,7 +123,7 @@ public class ChessBoard {
             cols = game.getBoard().getWidth();
             setLayout(new GridLayout(rows, cols));
 
-            // adding the square s to their individual places;
+            // adding the squares to their individual places;
             squares = new SquarePanel[rows][cols];
             for(int i = 0; i < rows; i++){
                 for(int j = 0; j < cols; j++){
@@ -142,10 +150,11 @@ public class ChessBoard {
             validate();
             repaint();
         }
+
     }
 
     private class SquarePanel extends JPanel{
-        private static final Color LIGHT_COLOR = Color.decode("#eeeed2") ;
+        private static final Color LIGHT_COLOR = Color.decode("#eeeed2");
         private static final Color DARK_COLOR = Color.decode("#769656");
         private final int row;
         private final int col;
@@ -201,7 +210,7 @@ public class ChessBoard {
 
                         }
                         boardPanel.reDrawBoard();
-
+                        piecePanel.addTakenPieceIcons();
                     }
                 }
                 @Override
@@ -217,6 +226,8 @@ public class ChessBoard {
                 public void mouseExited(MouseEvent e) {
                 }
             });
+
+
 
             validate();
         }
@@ -264,7 +275,80 @@ public class ChessBoard {
                 }
             }
         }
+
     }
 
+    /**
+     * Class to display the pieces taken during the game on the side
+     */
+    private class PiecePanel extends JPanel{
+        Game game;
+        TakenPiecePanel p1Panel;
+        TakenPiecePanel p2Panel;
+
+
+        public PiecePanel(Game game){
+
+            this.game = game;
+            this.setPreferredSize(new Dimension(200,800));
+
+            p1Panel = new TakenPiecePanel(game.getPlayer1());
+            p2Panel = new TakenPiecePanel(game.getPlayer2());
+
+            p1Panel.setBackground(SquarePanel.LIGHT_COLOR);
+            p2Panel.setBackground(SquarePanel.DARK_COLOR);
+            p1Panel.add(new JLabel("WHITE"), BorderLayout.CENTER);
+            p2Panel.add(new JLabel("BLACK"), BorderLayout.CENTER);
+
+            setLayout(new BorderLayout());
+            add(p1Panel, BorderLayout.EAST);
+            add(p2Panel, BorderLayout.WEST);
+
+        }
+        public void addTakenPieceIcons(){
+            p1Panel.addPieceIcons();
+            p2Panel.addPieceIcons();
+        }
+
+        /**
+         * Class to display the pieces taken by one player on the Pieces panel
+         */
+        private class TakenPiecePanel extends JPanel{
+            private final Vector<Piece> takenPieces;
+            Player player;
+
+            public TakenPiecePanel(Player player){
+
+                setPreferredSize(new Dimension(100,800));
+                this.player = player;
+                takenPieces = player.getTakenEnemyPieces();
+
+
+                setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+                validate();
+
+            }
+            public void addPieceIcons(){
+                ImageIcon[] icons;
+                if(player.getColor().toString().equals("WHITE")){
+                    icons = BlackIcons;
+                }else {
+                    icons = WhiteIcons;
+                }
+
+                removeAll();
+                for(Piece piece : takenPieces) {
+                    Image img = icons[piece.getType().getNumber()].getImage();
+                    Image newimg = img.getScaledInstance(45,45, Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(newimg);
+                    this.add(new JLabel(icon));
+                }
+                validate();
+                repaint();
+            }
+        }
+
+    }
 
 }

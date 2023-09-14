@@ -2,7 +2,7 @@ package Game;
 
 import Pieces.Piece;
 
-import java.util.Collection;
+
 import java.util.Vector;
 
 /**
@@ -10,29 +10,29 @@ import java.util.Vector;
  */
 public class Player {
     private final Game game;
-    private Color color;
+    private final Color color;
     private Vector<Piece> alivePieces;
     private Vector<Piece> takenEnemyPieces;
-
+    private Piece prevMovedPiece;
+    private Square prevMoveSquare;
 
     public Player(Color c, Game game){
         color = c;
         this.game = game;
         alivePieces = new Vector<>();
         takenEnemyPieces = new Vector<>();
+        prevMovedPiece = null;
+        prevMoveSquare = null;
     }
 
     /**
      * Function returning the color of the player
-     *
      * @return The color of the player
      */
     public Color getColor() {
         return color;
     }
-    public void setColor(Color c){
-        color = c;
-    }
+
     public void captureEnemyPiece(Piece piece){
         takenEnemyPieces.add(piece);
     }
@@ -112,5 +112,53 @@ public class Player {
      */
     public void removeAlivePiece(Piece piece){
         alivePieces.remove(piece);
+    }
+
+    /**
+     * Function to set the piece that was last moved by the player
+     * @param prevMovedPiece the piece last moved by the player
+     */
+    public void setPrevMovedPiece(Piece prevMovedPiece) {
+        this.prevMovedPiece = prevMovedPiece;
+    }
+
+    /**
+     * Funciton returning the piece that was last moved
+     * @return the piece that was last moved
+     */
+    public Piece getPrevMovedPiece() {
+        return prevMovedPiece;
+    }
+
+    /**
+     * Function returning the square that the piece was moved to in the last move
+     * @return the target square of the last move
+     */
+    public Square getPrevMoveSquare() {
+        return prevMoveSquare;
+    }
+
+    /**
+     * Funciton setting the square that the piece was moved to in the last move
+     * @param prevMoveSquare the target square of the last move
+     */
+    public void setPrevMoveSquare(Square prevMoveSquare) {
+        this.prevMoveSquare = prevMoveSquare;
+    }
+
+    /**
+     * Function returning the current game
+     * @return the current game
+     */
+    public Game getGame() {
+        return game;
+    }
+
+    /**
+     * Function returning the taken pieces of the enemy in a vector
+     * @return the takenEnemyPieces vector
+     */
+    public Vector<Piece> getTakenEnemyPieces() {
+        return takenEnemyPieces;
     }
 }
